@@ -1,6 +1,8 @@
-# API Endpoints Overview
 
-Below is a markdown summary of the 17 API endpoints:
+
+---
+
+# API Endpoints Overview
 
 ---
 
@@ -41,7 +43,7 @@ Adds a new subscription type.
 {
   "subscriptionCode": "string",
   "subscriptionType": "Gold|Diamond",
-  "applications": ["string", ...]
+  "applications": ["string", "..."]
 }
 ```
 
@@ -102,11 +104,11 @@ Gets out-of-stock products in a warehouse.
 ---
 
 ### 9. **POST `/api/inventory/add`**
-Adds inventory and products.  
+Adds inventory and products (bulk).  
 **Form-data:**  
 - `warehouse`: string  
 - `owner`: string  
-- `products`: JSON stringified array  
+- `products`: JSON stringified array of product objects  
 - Images: `images_0`, `images_1`, ... (files for each product)
 
 ---
@@ -119,7 +121,31 @@ Updates inventory products.
 
 ---
 
-### 11. **POST `/api/store/add`**
+### 11. **POST `/api/product/add`**
+Adds a single product.  
+**Body:**
+```json
+{
+  "name": "string",
+  "barcode": "string",
+  "description": "string",
+  "mPrice": number,
+  "measuringUnit": "string",
+  "images": ["string", "..."], // Array of image URLs or filenames
+  "category": "string",
+  "subCategory": "string",
+  "wholeSalePrice": number,
+  "thresholdPrice": number,
+  "owner": "userId",
+  "sPrice": number,
+  "shelfLoc": number
+}
+```
+*Note: If uploading images as files, use `multipart/form-data`.*
+
+---
+
+### 12. **POST `/api/store/add`**
 Adds a new store.  
 **Body:**
 ```json
@@ -135,7 +161,7 @@ Adds a new store.
 
 ---
 
-### 12. **POST `/api/salesmate/assign-market`**
+### 13. **POST `/api/salesmate/assign-market`**
 Assigns a market (calendar) to a salesman.  
 **Body:**
 ```json
@@ -145,8 +171,8 @@ Assigns a market (calendar) to a salesman.
   "routes": [
     {
       "dayOfWeek": "Sunday|Monday|...|Saturday",
-      "stores": ["storeId", ...],
-      "repeatWeekly": true|false
+      "stores": ["storeId", "..."],
+      "repeatWeekly": true
     }
   ],
   "assignedTo": "userId",
@@ -156,7 +182,7 @@ Assigns a market (calendar) to a salesman.
 
 ---
 
-### 13. **POST `/api/salesmate/get-calendar`**
+### 14. **POST `/api/salesmate/get-calendar`**
 Gets calendar summary for a salesman.  
 **Body:**
 ```json
@@ -169,19 +195,19 @@ Gets calendar summary for a salesman.
 
 ---
 
-### 14. **POST `/api/salesmate/add-catalogue`**
+### 15. **POST `/api/salesmate/add-catalogue`**
 Adds or updates a catalogue for an admin.  
 **Body:**
 ```json
 {
   "adminId": "userId",
-  "products": ["productId", ...]
+  "products": ["productId", "..."]
 }
 ```
 
 ---
 
-### 15. **POST `/api/salesmate/get-catalogue`**
+### 16. **POST `/api/salesmate/get-catalogue`**
 Gets catalogue products for an admin.  
 **Body:**
 ```json
@@ -192,7 +218,7 @@ Gets catalogue products for an admin.
 
 ---
 
-### 16. **POST `/api/salesmate/generate-order`**
+### 17. **POST `/api/salesmate/generate-order`**
 Generates a new order.  
 **Body:**
 ```json
@@ -215,7 +241,7 @@ Generates a new order.
 
 ---
 
-### 17. **POST `/api/salesmate/get-calendar-area`**
+### 18. **POST `/api/salesmate/get-calendar-area`**
 Gets calendar stores by area for a salesman.  
 **Body:**
 ```json
@@ -228,3 +254,5 @@ Gets calendar stores by area for a salesman.
 ```
 
 ---
+
+**If you have more controllers or need further details for any endpoint, let me know!**
